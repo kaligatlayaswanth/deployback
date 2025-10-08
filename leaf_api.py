@@ -7,6 +7,7 @@ from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from PIL import Image
 import requests
+import uvicorn
 
 # --- Initialize FastAPI ---
 app = FastAPI(title="Leaf Disease Detection API")
@@ -128,6 +129,14 @@ async def predict(file: UploadFile = File(...)):
 @app.get("/")
 def root():
     return {"message": "Leaf Disease Detection API is running!"}
+
+
+
+
+if __name__ == "__main__":
+    import os
+    port = int(os.environ.get("PORT", 8000))  # default 8000 for local
+    uvicorn.run(app, host="0.0.0.0", port=port)
 
 
 
